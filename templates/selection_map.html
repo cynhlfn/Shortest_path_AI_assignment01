@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shortest path map</title>
+
+    <!-- Leaflet CSS et JS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <!-- jQuery pour AJAX -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Shortest path map</h1>
+
+    <!-- SEULEMENT la carte dynamique -->
+    <div id="map" style="width: 100%; height: 500px"></div>
+
+    <script>
+      window.onload = function () {
+        console.log("Script JavaScript chargé !");
+
+        let map = L.map("map").setView([36.7410995, 3.1208536], 12);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
+          map
+        );
+
+        let startMarker = null;
+        let goalMarker = null;
+        let pathLayer = null;
+
+        map.on("click", function (e) {
+          console.log("Clic détecté :", e.latlng);
+
+          if (!startMarker) {
+            startMarker = L.marker(e.latlng, { draggable: true })
+              .addTo(map)
+              .bindPopup("Départ")
+              .openPopup();
+          } else if (!goalMarker) {
+            goalMarker = L.marker(e.latlng, { draggable: true })
+              .addTo(map)
+              .bindPopup("Arrivée")
+              .openPopup();
+
+            console.log("📤 Envoi des données à Flask...");
+            $.ajax({
+              url: "/shortest_path",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({
+                start: [
+                  startMarker.getLatLng().lat,
+                  startMarker.getLatLng().lng,
+                ],
+                goal: [goalMarker.getLatLng().lat, goalMarker.getLatLng().lng],
+              }),
+              success: function (response) {
+                console.log("✅ Réponse reçue :", response);
+                if (pathLayer) {
+                  map.removeLayer(pathLayer);
+                }
+
+                pathLayer = L.polyline(response.path, { color: "blue" }).addTo(
+                  map
+                );
+              },
+              error: function (error) {
+                console.error("❌ Erreur AJAX :", error);
+                alert("Erreur : " + error.responseJSON.error);
+              },
+            });
+          } else {
+            console.log("♻️ Réinitialisation des marqueurs");
+            map.removeLayer(startMarker);
+            map.removeLayer(goalMarker);
+            if (pathLayer) {
+              map.removeLayer(pathLayer);
+            }
+
+            startMarker = null;
+            goalMarker = null;
+            pathLayer = null;
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
