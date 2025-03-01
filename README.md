@@ -1,6 +1,6 @@
 # 🗺️ Shortest Path Finder using A\* Algorithm
 
-This is a Flask-based web application that calculates and displays the **shortest path** between two selected locations on a map. The app is built using **Flask, Folium, OSMnx, and NetworkX**, and implements the **A\* algorithm manually**.
+This is a Flask-based web application that calculates and displays the **shortest path** between two selected locations on a map (Bejaia). The app is built using **Flask, Folium, OSMnx, and NetworkX**, and implements the **A\* algorithm manually**.
 
 ## 🚀 Features
 

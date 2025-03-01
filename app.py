@@ -11,7 +11,7 @@ import math
 app = Flask(__name__)
 
 # le graphe de alger (comme exemple)
-region = "Alger, Algeria"  # a modifier selon la région souhaitée
+region = "Béjaïa Province, Algeria"  # a modifier selon la région souhaitée (j'ai mit bejaia province au lieu de bejaia pour que ça couvre l'entiereté de la wilaia et non pas la ville de bejaia uniquement)
 
 print("Téléchargement du graphe en cours...")
 try:
@@ -27,7 +27,8 @@ except Exception as e:
 def home():
     print("Accès à la page d'accueil")
     # Créer une carte centrée sur Alger
-    m = folium.Map(location=[36.7410995, 3.1208536], zoom_start=12)
+    m = folium.Map(location=[36.7509, 5.0564], zoom_start=12)  # Coordonnées de Béjaïa
+
     # Convertir la carte en HTML
     map_html = m._repr_html_()
     return render_template("selection_map.html", map_html=map_html)
