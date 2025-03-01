@@ -19,37 +19,68 @@ This is a Flask-based web application that calculates and displays the **shortes
 ```sh
 git clone https://github.com/cynhlfn/Shortest_path_AI_assignment01.git
 cd Shortest_path_AI_assignment01
+```
 
 ### **2️⃣ Create and Activate a Virtual Environment**
 
-##✅ ** For Linux/macOS:
+##✅ \*\* For Linux/macOS:
+
+```sh
 python3 -m venv venv
 source venv/bin/activate
-##✅ ** For Windows (Command Prompt):
+```
+
+##✅ \*\* For Windows (Command Prompt):
+
+```sh
 python -m venv venv
 venv\Scripts\activate
+```
 
-### **3️⃣ Install Dependencies
+### \*\*3️⃣ Install Dependencies
+
+```sh
 pip install -r requirements.txt
+```
 
 ### 📌 If requirements.txt is missing, create it using:
-pip freeze > requirements.txt
 
-### **4️⃣ Run the Application
+```sh
+pip freeze > requirements.txt
+```
+
+### \*\*4️⃣ Run the Application
+
+```sh
 python app.py
+```
 
 ### OR (if using Flask's built-in CLI):
+
+```sh
 flask run
+```
 
 ### Then, open your browser and go to:
+
 🔗 http://127.0.0.1:5000
 
 ### 📂 Project Structure
+
 #Shortest_path_AI_assignment01/
+
 # │── templates/
+
 # │── app.py
+
 # │── requirements.txt
+
 # │── README.md
+
 # │── .gitignore
+
 # └── venv/
+
+```
+
 ```
