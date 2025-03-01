@@ -1,14 +1,12 @@
 # 🗺️ Shortest Path Finder using A\* Algorithm
 
-This is a Flask-based web application that calculates and displays the **shortest path** between two selected locations on a map. The app is built using **Flask, Folium, OSMnx, and NetworkX**, and implements the **A\* algorithm manually** instead of using built-in NetworkX functions.
+This is a Flask-based web application that calculates and displays the **shortest path** between two selected locations on a map. The app is built using **Flask, Folium, OSMnx, and NetworkX**, and implements the **A\* algorithm manually**.
 
 ## 🚀 Features
 
 ✅ Find the shortest path between two points using **A\*** (A-star)  
 ✅ Interactive **clickable map** to select start and destination  
-✅ Uses **real-world road networks** from OpenStreetMap (OSM)  
-✅ **Fast and efficient** pathfinding  
-✅ **Lightweight** Flask application
+✅ Uses **real-world road networks** from OpenStreetMap (OSM)
 
 ---
 
