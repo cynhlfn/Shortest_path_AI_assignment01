@@ -69,17 +69,12 @@ flask run
 
 #Shortest_path_AI_assignment01/
 
-# │── templates/
-
-# │── app.py
-
-# │── requirements.txt
-
-# │── README.md
-
-# │── .gitignore
-
-# └── venv/
+│── templates/
+│── app.py
+│── requirements.txt
+│── README.md
+│── .gitignore
+└── venv/
 
 ```
 
