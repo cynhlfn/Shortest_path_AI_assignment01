@@ -11,7 +11,7 @@ import math
 app = Flask(__name__)
 
 # le graphe de alger (comme exemple)
-region = "Alger, Algeria"  # a odifier selon la région souhaitée
+region = "Alger, Algeria"  # a modifier selon la région souhaitée
 
 print("Téléchargement du graphe en cours...")
 try:
