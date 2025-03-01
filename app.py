@@ -10,22 +10,22 @@ import math
 
 app = Flask(__name__)
 
-# Télécharger le graphe routier d'une région d'Algérie
-region = "Alger, Algeria"  # Modifier selon la région souhaitée
+# le graphe de alger (comme exemple)
+region = "Alger, Algeria"  # a odifier selon la région souhaitée
 
 print("Téléchargement du graphe en cours...")
 try:
     G = ox.graph_from_place(region, network_type="drive")
-    print("✅ Graphe téléchargé avec succès !")
+    print("Graphe téléchargé avec succès !")
 except Exception as e:
-    print(f"❌ Erreur lors du téléchargement du graphe : {e}")
+    print(f"Erreur lors du téléchargement du graphe : {e}")
     exit(1)
 
 
 
 @app.route('/')
 def home():
-    print("📌 Accès à la page d'accueil")
+    print("Accès à la page d'accueil")
     # Créer une carte centrée sur Alger
     m = folium.Map(location=[36.7410995, 3.1208536], zoom_start=12)
     # Convertir la carte en HTML
