@@ -21,21 +21,21 @@ cd Shortest_path_AI_assignment01
 
 ### **2️⃣ Create and Activate a Virtual Environment**
 
-##✅ \*\* For Linux/macOS:
+✅ For Linux/macOS:
 
 ```sh
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-##✅ \*\* For Windows (Command Prompt):
+✅ For Windows (Command Prompt):
 
 ```sh
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### \*\*3️⃣ Install Dependencies
+### **3️⃣ Install Dependencies**
 
 ```sh
 pip install -r requirements.txt
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 pip freeze > requirements.txt
 ```
 
-### \*\*4️⃣ Run the Application
+### 4️⃣ Run the Application
 
 ```sh
 python app.py
