@@ -67,6 +67,7 @@ flask run
 
 ### 📂 Project Structure
 
+```
 Shortest_path_AI_assignment01/
 │── templates/
 │ ├── selection_map.html
@@ -75,7 +76,5 @@ Shortest_path_AI_assignment01/
 │── requirements.txt # Python dependencies
 │── README.md # Project documentation │── .gitignore # Ignored files (e.g., venv, pycache)
 └── venv/ # Virtual environment (not included in GitHub)
-
-```
 
 ```
