@@ -10,7 +10,7 @@ import math
 
 app = Flask(__name__)
 
-# le graphe de alger (comme exemple)
+
 region = "Béjaïa Province, Algeria"  # a modifier selon la région souhaitée (j'ai mit bejaia province au lieu de bejaia pour que ça couvre l'entiereté de la wilaia et non pas la ville de bejaia uniquement)
 
 print("Téléchargement du graphe en cours...")
