@@ -1,53 +1,55 @@
-print("Début du script...")
-
+import os
+import threading
 from flask import Flask, render_template, request, jsonify
 import folium
 import osmnx as ox
 import networkx as nx
 import heapq
 from geopy.distance import geodesic
-import math
-import os
+
 app = Flask(__name__)
 
+region = "Béjaïa Province, Algeria"
+G = None  # Graphe chargé en arrière-plan
 
-region = "Béjaïa Province, Algeria"  # a modifier selon la région souhaitée (j'ai mit bejaia province au lieu de bejaia pour que ça couvre l'entiereté de la wilaia et non pas la ville de bejaia uniquement)
+def charger_graphe():
+    global G
+    print("Téléchargement du graphe en arrière-plan...")
+    try:
+        G = ox.graph_from_place(region, network_type="drive")
+        print("Graphe prêt !")
+    except Exception as e:
+        print(f"Erreur lors du téléchargement du graphe : {e}")
 
-print("Téléchargement du graphe en cours...")
-try:
-    G = ox.graph_from_place(region, network_type="drive")
-    print("Graphe téléchargé avec succès !")
-except Exception as e:
-    print(f"Erreur lors du téléchargement du graphe : {e}")
-    exit(1)
-
+# Lance le téléchargement dans un thread séparé dès le démarrage
+thread = threading.Thread(target=charger_graphe)
+thread.daemon = True
+thread.start()
 
 
 @app.route('/')
 def home():
     print("Accès à la page d'accueil")
-    # Créer une carte centrée sur Alger
-    m = folium.Map(location=[36.7509, 5.0564], zoom_start=12)  # Coordonnées de Béjaïa
-
-    # Convertir la carte en HTML
+    m = folium.Map(location=[36.7509, 5.0564], zoom_start=12)
     map_html = m._repr_html_()
     return render_template("selection_map.html", map_html=map_html)
 
 
 def heuristic(a, b):
-    return geodesic((G.nodes[a]['y'], G.nodes[a]['x']), (G.nodes[b]['y'], G.nodes[b]['x'])).meters
+    return geodesic(
+        (G.nodes[a]['y'], G.nodes[a]['x']),
+        (G.nodes[b]['y'], G.nodes[b]['x'])
+    ).meters
+
 
 def A_star_algo(G, start, goal):
     q = []
     heapq.heappush(q, (0, start))
-    #utiliser 'parents' pour memoriser le parent de chaque element ajouté
     parents = {}
-    #initialiser la fonciton 'g' et 'f' a plus l'infini pour chaque noeud 
-    g = {node: float('inf') for node in  G.nodes}
-    f = {node: float('inf') for node in  G.nodes}
+    g = {node: float('inf') for node in G.nodes}
+    f = {node: float('inf') for node in G.nodes}
     g[start] = 0
     f[start] = heuristic(start, goal)
-
 
     while q:
         a, curr = heapq.heappop(q)
@@ -59,10 +61,10 @@ def A_star_algo(G, start, goal):
             resultpath.append(start)
             resultpath.reverse()
             return resultpath
-        
+
         for n in G.neighbors(curr):
             new_g = g[curr] + min(edge['length'] for edge in G[curr][n].values())
-            if new_g < g[n] :
+            if new_g < g[n]:
                 parents[n] = curr
                 g[n] = new_g
                 f[n] = g[n] + heuristic(n, goal)
@@ -70,35 +72,42 @@ def A_star_algo(G, start, goal):
     return None
 
 
-
-
-
 @app.route('/shortest_path', methods=['POST'])
 def shortest_path():
+    # Graphe pas encore prêt → réponse claire
+    if G is None:
+        return jsonify({
+            "error": "Le graphe est en cours de chargement, veuillez patienter quelques secondes et réessayer."
+        }), 503
+
     data = request.get_json()
-    start = tuple(data.get("start")) 
-    goal = tuple(data.get("goal")) 
+    start = tuple(data.get("start"))
+    goal = tuple(data.get("goal"))
 
     if not start or not goal:
-        return jsonify({"error": "Veuillez sélectionner un point de départ et un point d'arrivée"}), 400
+        return jsonify({
+            "error": "Veuillez sélectionner un point de départ et un point d'arrivée"
+        }), 400
 
     print(f"Départ : {start}, Arrivée : {goal}")
 
     try:
-        # Trouver les nœuds les plus proches
         orig_node = ox.distance.nearest_nodes(G, start[1], start[0])
         dest_node = ox.distance.nearest_nodes(G, goal[1], goal[0])
         print(f"Nœud départ : {orig_node}, Nœud arrivée : {dest_node}")
 
-        # Calculer le plus court chemin
-        shortest_path_nodes = A_star_algo(G, orig_node, dest_node)   
+        shortest_path_nodes = A_star_algo(G, orig_node, dest_node)
         print(f"Chemin trouvé : {shortest_path_nodes}")
+
         if shortest_path_nodes is None:
-            return jsonify({"error": "A* could not find a path between the selected points."}), 400
+            return jsonify({
+                "error": "A* n'a pas pu trouver de chemin entre les points sélectionnés."
+            }), 400
 
-
-        # Convertion en lat, long
-        path_coords = [(G.nodes[node]['y'], G.nodes[node]['x']) for node in shortest_path_nodes]
+        path_coords = [
+            (G.nodes[node]['y'], G.nodes[node]['x'])
+            for node in shortest_path_nodes
+        ]
         return jsonify({"path": path_coords})
 
     except Exception as e:
@@ -107,6 +116,5 @@ def shortest_path():
 
 
 if __name__ == "__main__":
-    print("Lancement de Flask sur http://127.0.0.1:5000/")  
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
