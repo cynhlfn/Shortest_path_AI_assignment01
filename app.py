@@ -16,10 +16,11 @@ def charger_graphe():
     global G
     print("Téléchargement du graphe en arrière-plan...")
     try:
-        G = ox.graph_from_place(region, network_type="drive")
+        # Centre de Béjaïa, rayon de 5km seulement
+        G = ox.graph_from_point((36.7509, 5.0564), dist=5000, network_type="drive")
         print("Graphe prêt !")
     except Exception as e:
-        print(f"Erreur lors du téléchargement du graphe : {e}")
+        print(f"Erreur : {e}")
 
 # Lance le téléchargement dans un thread séparé dès le démarrage
 thread = threading.Thread(target=charger_graphe)
