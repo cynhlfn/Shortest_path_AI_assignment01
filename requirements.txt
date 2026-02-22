@@ -3,3 +3,4 @@ folium==0.19.4
 osmnx==2.0.1
 networkx==3.4.2
 geopy==2.4.1
+gunicorn==21.2.0
