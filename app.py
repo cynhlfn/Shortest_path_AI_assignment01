@@ -9,7 +9,7 @@ from geopy.distance import geodesic
 
 app = Flask(__name__)
 
-region = "Béjaïa Province, Algeria"
+region = "Béjaïa, Algeria"
 G = None  # Graphe chargé en arrière-plan
 
 def charger_graphe():
