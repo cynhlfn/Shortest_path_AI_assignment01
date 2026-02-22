@@ -1,6 +1,6 @@
 # 🗺️ Shortest Path Finder — A* Algorithm
 
-> Application web interactive pour calculer le plus court chemin entre deux points sur une carte réelle, en utilisant une implémentation manuelle de l'algorithme A*.
+> Application web interactive pour calculer le plus court chemin entre deux points sur une carte réelle (notre code prend pour exemple la wilaya de Bejaia en Algerie, donc assurer vous bien de selectionner deux region de cette wilaya ;), en utilisant une implémentation manuelle de l'algorithme A*.
 
 ---
 
