@@ -1,10 +1,10 @@
 # 🗺️ Shortest Path Finder — A* Algorithm
 
-> Programe python  pour calculer le plus court chemin entre deux points sur une carte réelle (notre code prend pour exemple la wilaya de Bejaia en Algerie, donc assurer vous bien de selectionner deux region de cette wilaya ;), en utilisant une implémentation manuelle de l'algorithme A*.
+Programe python realiser dans le cadre d'un projet academique du module IA pour calculer le plus court chemin entre deux points sur une carte réelle (notre code prend pour exemple la wilaya de Bejaia en Algerie, donc assurer vous bien de selectionner deux region de cette wilaya ;), en utilisant une implémentation manuelle de l'algorithme A*.
 
 ---
 
-## 📌 Présentation
+## Présentation
 
 **Shortest Path Finder** est une application web développée dans le cadre d'un devoir d'Intelligence Artificielle (Assignment 01). Elle permet de visualiser le calcul du plus court chemin sur le réseau routier réel de la **wilaya de Béjaïa** (Algérie), en s'appuyant sur les données OpenStreetMap.
 
@@ -12,30 +12,27 @@ L'algorithme **A\*** est implémenté manuellement (sans librairie externe de pa
 
 ---
 
-## ✨ Fonctionnalités clés
+## Fonctionnalités clés
 
-- 🖱️ **Sélection interactive** des points de départ et d'arrivée directement sur la carte
-- 🧠 **Algorithme A\* implémenté from scratch** avec heuristique géodésique (distance réelle en mètres)
-- 🗺️ **Réseau routier réel** chargé depuis OpenStreetMap via OSMnx
-- 📍 **Visualisation du chemin** tracé sur la carte avec Folium
-- ⚡ Calcul du nœud le plus proche automatiquement pour chaque point cliqué
-
----
-
-## 🧰 Stack technique
-
-| Composant | Technologie |
-|---|---|
-| Framework web | Python · Flask |
-| Rendu cartographique | Folium |
-| Réseau routier OSM | OSMnx |
-| Graphes & structure | NetworkX |
-| Heuristique distance | Geopy |
-| Frontend | HTML · JavaScript |
+- **Sélection interactive** des points de départ et d'arrivée directement sur la carte
+- **Algorithme A\* implémenté from scratch** avec heuristique géodésique (distance réelle en mètres)
+- **Réseau routier réel** chargé depuis OpenStreetMap via OSMnx
+- **Visualisation du chemin** tracé sur la carte avec Folium
+- Calcul du nœud le plus proche automatiquement pour chaque point cliqué
 
 ---
 
-## 🚀 Installation & lancement local
+## technologies utilisées
+- Python (Flask)
+- Folium 
+- OSMnx 
+- NetworkX
+- Geopy 
+- HTML/JavaScript
+
+---
+
+## Installation & lancement local
 
 ### Prérequis
 
@@ -71,7 +68,7 @@ L'application est accessible sur **http://127.0.0.1:5000**
 
 ---
 
-## 🧩 Structure du projet
+## Structure du projet
 
 ```
 Shortest_path_AI_assignment01/
@@ -85,7 +82,7 @@ Shortest_path_AI_assignment01/
 
 ---
 
-## 🔬 Comment fonctionne A* ici ?
+## Comment fonctionne A* ici ?
 
 1. L'utilisateur clique deux points sur la carte (départ & arrivée)
 2. OSMnx trouve les **nœuds du graphe routier** les plus proches de chaque clic
@@ -97,6 +94,3 @@ Shortest_path_AI_assignment01/
 
 ---
 
-## 📄 Contexte académique
-
-Projet réalisé dans le cadre du cours d'Intelligence Artificielle — Université de Béjaïa.
